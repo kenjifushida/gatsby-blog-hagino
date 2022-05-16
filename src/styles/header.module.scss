@@ -1,0 +1,15 @@
+.header {
+    margin: 0 auto;
+    padding: 1.5rem 3.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--color-primary);
+}
+
+.head-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+}
