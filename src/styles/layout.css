@@ -20,6 +20,7 @@
   --space-3: 16px;
   --space-4: 24px;
   --space-5: 32px;
+  --space-sides: 60px;
   --space-6: 64px;
   --size-content: 54rem;
   --size-gutter: var(--space-5);

@@ -6,10 +6,12 @@
  */
 
 import * as React from "react"
+import { useState } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
+
 import "../styles/layout.css"
 
 const Layout = ({ children }) => {
@@ -22,6 +24,7 @@ const Layout = ({ children }) => {
       }
     }
   `)
+  const [selView, setView] = useState("Card view")
 
   return (
     <>
@@ -29,21 +32,11 @@ const Layout = ({ children }) => {
       <div
         style={{
           margin: `0 auto`,
-          maxWidth: `var(--size-content)`,
-          padding: `var(--size-gutter)`,
+          maxWidth: `90rem`,
+          padding: `var(--size-gutter) var(--space-sides)`,
         }}
       >
         <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `var(--space-5)`,
-            fontSize: `var(--font-sm)`,
-          }}
-        >
-          © {new Date().getFullYear()} &middot; Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
       </div>
     </>
   )

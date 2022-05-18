@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    align-items: center;
+    background: #C4C4C4;
+    border-radius: 12px;
+    svg {
+        margin-left: 0.25rem;
+    }
+}
+
+.combobox {
+    border: none;
+    background: rgba(0,0,0,0);
+    height: 1.5rem;
+    width: 12.5rem;
+}
+
+.combobox:focus {
+    outline: none;
+}
+
+.combobox::placeholder {
+    font-style: italic;
+}
