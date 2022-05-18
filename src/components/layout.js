@@ -24,7 +24,6 @@ const Layout = ({ children }) => {
       }
     }
   `)
-  const [selView, setView] = useState("Card view")
 
   return (
     <>
