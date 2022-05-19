@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Combobox from "../components/combobox"
@@ -16,12 +16,12 @@ const ViewItems = [
       text: "List view"
   },
   {
-      text: "Grid view"
+      text: "Card view"
   },
   {
       text: "Stack view"
   }
-]
+];
 
 const LocationItems = [
   {
@@ -33,12 +33,27 @@ const LocationItems = [
 {
     text: "Kanagawa"
 }
-]
+];
 
 
 const IndexPage = ({data}) => {
-  const [selView, setView] = useState("Card view")
-  const [selLoc, setLoc] = useState("Location")
+  const [selView, setView] = useState("Card view");
+  const [selLoc, setLoc] = useState("Location");
+  const [postClass, setPostClass] = useState(styles.post);
+
+  useEffect(
+    () => {
+      switch(selView) {
+        case "List view":
+          return setPostClass(styles.post);
+        case "Card view":
+          return setPostClass(styles.card);
+        case "Stack view":
+          return setPostClass(styles.stack);
+      }
+    },
+    [selView]
+  );
 
     return (
       <Layout>
@@ -54,13 +69,13 @@ const IndexPage = ({data}) => {
               itemHandler={setView} />
           </div>
         </div>
-        <div className={styles.content}>
+        <div className={styles.content} style={{flexDirection: selView=="Card view" ? "row" : "column"}}>
           {data.allMdx.edges.map(post => {
             const img = getImage(post.node.frontmatter.image)
             return (
-              <div key={post.node.id} className={styles.post}>
+              <div key={post.node.id} className={postClass}>
                 <GatsbyImage image={img} 
-                alt={post.node.frontmatter.title}/>
+                alt={post.node.frontmatter.title} className={styles.postImg}/>
                 <div className={styles.postInfo}>
                   <h3>{post.node.frontmatter.title}</h3>
                   <p className={styles.desc}>{post.node.frontmatter.excerpt}</p>
