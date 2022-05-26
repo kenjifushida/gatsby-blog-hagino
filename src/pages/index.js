@@ -77,6 +77,7 @@ const IndexPage = ({ data }) => {
         <div className={styles.content} style={{flexDirection: selView==="Card view" ? "row" : "column"}}>
           {data.allMdx.edges.map(post => {
             const img = getImage(post.node.frontmatter.image)
+            // this returns for each post
             return (
               <div key={post.node.id} className={postClass}>
                 <GatsbyImage image={img} 
