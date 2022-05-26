@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  flex: wrap;
+  flex: 1 0 33%;
   gap: 1.5rem;
 }
 

@@ -10,6 +10,11 @@
             margin-left: 0.5rem;
         }
     }
+    ul li a{
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
 }
 
 .dropdown ul {
@@ -22,15 +27,13 @@
     z-index: 1;
     li {
         display: block;
+        background: white;
         padding: 0.25rem 0.5rem;
         margin: 0;
     }
     li:hover{
         background-color: #8a8a8a;
     }
-}
-
-.dropdown:hover p{
 }
 
 .dropdown:hover ul {

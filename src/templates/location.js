@@ -41,7 +41,7 @@ const LocationItems = [
 
 const IndexPage = ({ data }) => {
   const [selView, setView] = useState("Card view");
-  const [selLoc, setLoc] = useState("Location");
+  const [selLoc, setLoc] = useState(data.allMdx.edges[0].node.frontmatter.location);
   const [postClass, setPostClass] = useState(styles.post);
 
   useEffect(
@@ -98,8 +98,8 @@ const IndexPage = ({ data }) => {
 }
 
 export const query = graphql`
-  {
-    allMdx {
+  query($slug: String!) {
+    allMdx(filter: {frontmatter: {location: {eq: $slug}}}) {
       edges {
         node {
           frontmatter {

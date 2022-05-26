@@ -9,7 +9,7 @@ const Dropdown = ({items, selectedItem, itemHandler}) => {
             <p>{selectedItem}<Triangle/></p>
             <ul>
                 {items.map(item => (
-                    <li onClick={()=>itemHandler(item.text)}>{item.text}</li>
+                    <li onClick={()=>itemHandler(item.text)}>{item.item ? item.item : item.text}</li>
                 ))}
             </ul>
         </div>
