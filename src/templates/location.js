@@ -23,6 +23,23 @@ const ViewItems = [
   }
 ];
 
+// below is possible code to automate LocationItems generation instead of adding each manually
+// when substituted into templates/location.js, it throws a gatsby error "cannot generate codeframe" or sth
+
+// const locations = ["Tokyo","Chiba","Kanagawa"];
+// const LocationItems = [];
+// for(var item in locations)
+// {
+//   var newElement = <Link to="/"item>Tokyo</Link>;
+//   newElement.innerHTML = item;
+//   LocationItems.push(
+//     {
+//       text: item,
+//       item: newElement
+//     }
+//   )
+// }
+
 const LocationItems = [
   {
     text: "Tokyo",
