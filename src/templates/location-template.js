@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState, useEffect } from "react"
-import { useSprings, animated, to as interpolate} from "react-spring"
+import { useSprings, animated, to as interpolate } from "react-spring"
 import { useDrag } from "@use-gesture/react"
 import { Link, graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
@@ -15,13 +15,13 @@ import * as styles from "../styles/index.module.scss"
 
 const ViewItems = [
   {
-    text: "List view"
+      text: "List view"
   },
   {
-    text: "Card view"
+      text: "Card view"
   },
   {
-    text: "Stack view"
+      text: "Stack view"
   }
 ];
 
@@ -36,11 +36,11 @@ const from = (_i) => ({ x: 0, rot:0, scale: 1.5, y: -1000})
 const trans = (r, s) => ` rotateX(30deg) rotateZ(${r}deg) scale(${s})`
 
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, location }) => {
   const [tags, setTags] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState(data.allMdx.edges);
-  const [selView, setView] = useState("Card view");
-  const [selLoc, setLoc] = useState("Location");
+  const [selView, setView] = useState(location.state.currView ? location.state.currView : "Card view");
+  const [selLoc, setLoc] = useState(data.allMdx.edges[0].node.frontmatter.location);
   const [postClass, setPostClass] = useState(styles.post);
   const LocationItems = [
     {
@@ -56,7 +56,7 @@ const IndexPage = ({ data }) => {
       item: <Link to="/Kanagawa" state={{ currView: selView}}>Kanagawa</Link>
     }
   ];
-  
+
   useEffect(
     () => {
       switch(selView) {
@@ -69,7 +69,8 @@ const IndexPage = ({ data }) => {
         default:
           return setPostClass(styles.card);
       }
-    }, [selView]
+    },
+    [selView]
   );
 
   // update filtered Posts
@@ -88,14 +89,14 @@ const IndexPage = ({ data }) => {
     }, [tags]
   )
 
-  // swipe animation
+  // Animation
 
-  const [gone] = useState(() => new Set())
+  const [gone] = useState(()=> new Set())
   const [props, api] = useSprings(filteredPosts.length, i => ({
     ...to(i),
     from: from(i),
   }))
-  
+
   const bind = useDrag(({ args: [index], down, movement: [mx], direction: [xDir], velocity }) => {
     const trigger = velocity[0] > 0.2 
     const dir = xDir < 0 ? -1 : 1
@@ -157,7 +158,7 @@ const IndexPage = ({ data }) => {
                       alt={filteredPosts[i].node.frontmatter.title} className={styles.postImg}
                       draggable="false"/>
                     <div className={styles.postInfo}>
-                      <h3><Link className={styles.postLink} to={filteredPosts[i].node.frontmatter.slug}>{filteredPosts[i].node.frontmatter.title}</Link></h3>
+                      <h3><Link className={styles.postLink} to={`/${filteredPosts[i].node.frontmatter.slug}`}>{filteredPosts[i].node.frontmatter.title}</Link></h3>
                       <p className={styles.desc}>{filteredPosts[i].node.frontmatter.excerpt}</p>
                       <div className={styles.location}>
                         <LocationPin/>
@@ -171,7 +172,7 @@ const IndexPage = ({ data }) => {
               <div key={filteredPosts[i].node.id} className={postClass}>
                 <Link
                 className={styles.postLink} 
-                to={filteredPosts[i].node.frontmatter.slug}>
+                to={`/${filteredPosts[i].node.frontmatter.slug}`}>
                   <GatsbyImage image={img} 
                     alt={filteredPosts[i].node.frontmatter.title} className={styles.postImg} />
                   <div className={styles.postInfo}>
@@ -193,8 +194,8 @@ const IndexPage = ({ data }) => {
 }
 
 export const query = graphql`
-  {
-    allMdx {
+  query($slug: String!) {
+    allMdx(filter: {frontmatter: {location: {eq: $slug}}}) {
       edges {
         node {
           frontmatter {

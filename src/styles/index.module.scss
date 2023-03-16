@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  flex: wrap;
-  flex: 1 0 33%;
-  gap: 1.5rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 0 0 33%;
+  gap: 2rem 5rem;
 }
 
 .component-cont {
@@ -21,22 +21,43 @@
   width: 20rem;
 }
 
+.post-link {
+  text-decoration: none;
+}
+
+.deck {
+  position: absolute;
+  width: 18.75rem;
+  height: 12.5rem;
+  will-change: transform;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  touch-action: none;
+}
+
 .post {
   display: flex;
-  gap: 2rem;
-  padding: 1.25rem;
+  background: var(--color-post);
+  .post-link {
+    display: flex;
+    gap: 2rem;
+    padding: 1.25rem;
+  }
   border: 1px solid black;
   border-radius: 0.75rem;
   box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
 }
 
 .post-info {
+  user-select: none;
   h3 {
     font-size: 1.5rem;
   }
 }
 
 .location {
+  user-select: none;
   display: flex;
   align-items: center;
   svg {
@@ -44,9 +65,18 @@
   }
 }
 
+.post-img {
+  min-width: 21.5rem;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 .stack {
   display: flex;
-  background: white;
+  background: var(--color-post);
   position: absolute;
   flex-direction: column;
   justify-content: flex-start;
@@ -63,16 +93,28 @@
   .desc {
     display: none;
   }
+  will-change: transform;
+  touch-action: none;
 }
 
 .card {
-  display: flex;
-  gap: 2rem;
+  transition: transform 0.5s ease;
   padding: 1.25rem;
   border: 1px solid black;
+  background: var(--color-post);
   border-radius: 0.75rem;
   box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+  .post-link {
+    img {
+      width: 21.5rem;
+      height: 16.625rem;
+    }
+  }
   .post-info {
     display: none;
   }
+}
+
+.card:hover {
+  transform: scale(1.1);
 }
